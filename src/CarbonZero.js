@@ -4,10 +4,10 @@ function CarbonZeroWrapper({ totalPrice, purchaseRefId, purchasedItems }) {
   const [showZero, setShowZero] = useState(false);
 
   const openZero = () => {
-    setShowZero(true);
+    setShowZero(!showZero);
   };
   const closeZero = () => {
-    return setShowZero(false);
+    return setShowZero(showZero);
   };
   useEffect(() => {
     if (showZero) {
@@ -22,15 +22,15 @@ function CarbonZeroWrapper({ totalPrice, purchaseRefId, purchasedItems }) {
       {showZero && (
         <carbon-zero
           class="carbon-zero"
-          merchant-id="3p853x"
-          api-key="live_pk_8nElb5tokJjGzJR3osUGY2W44Xk4bm"
+          merchant-id={process.env.REACT_APP_CARBON_ZERO_MERCHANT_ID}
+          api-key={process.env.REACT_APP_CARBON_ZERO_API_KEY}
           country="NG"
           total-price={totalPrice}
           purchase-ref-id={purchaseRefId}
           purchase-items={purchasedItems}
         ></carbon-zero>
       )}
-      <button onClick={openZero}>Pay With Carbon Zero</button>
+      <button onClick={() => openZero()}>Pay With Carbon Zero</button>
     </div>
   );
 }
